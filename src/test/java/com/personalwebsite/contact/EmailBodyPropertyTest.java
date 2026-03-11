@@ -1,8 +1,5 @@
 package com.personalwebsite.contact;
 
-import com.personalwebsite.contact.EmailFormatter;
-import com.personalwebsite.contact.FormData;
-
 import net.jqwik.api.*;
 
 /**

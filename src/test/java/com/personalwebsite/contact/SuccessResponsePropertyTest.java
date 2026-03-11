@@ -3,8 +3,6 @@ package com.personalwebsite.contact;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 import com.google.gson.Gson;
-import com.personalwebsite.contact.ContactFormHandler;
-import com.personalwebsite.contact.FormData;
 
 import net.jqwik.api.*;
 import org.mockito.Mockito;

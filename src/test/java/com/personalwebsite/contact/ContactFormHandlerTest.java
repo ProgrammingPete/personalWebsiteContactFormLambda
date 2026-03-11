@@ -3,9 +3,6 @@ package com.personalwebsite.contact;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse;
 import com.google.gson.Gson;
-import com.personalwebsite.contact.ContactFormHandler;
-import com.personalwebsite.contact.EmailFormatter;
-import com.personalwebsite.contact.FormData;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,5 @@
 package com.personalwebsite.contact;
 
-import com.personalwebsite.contact.InputValidator;
-
 import net.jqwik.api.*;
 
 /**

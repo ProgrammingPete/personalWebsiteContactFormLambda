@@ -4,9 +4,6 @@ import net.jqwik.api.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.personalwebsite.contact.FormData;
-import com.personalwebsite.contact.InputValidator;
-
 /**
  * Feature: contact-form-processing, Property 1: Validation correctly identifies missing or empty required fields
  * Validates: Requirements 2.1, 2.2
