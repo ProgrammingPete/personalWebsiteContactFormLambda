@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'com.gradleup.shadow' version '9.0.0-beta12'
+}
+
+group = 'com.personalwebsite'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.14.0'
+    implementation 'software.amazon.awssdk:ses:2.29.45'
+    implementation 'com.google.code.gson:gson:2.11.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testImplementation 'net.jqwik:jqwik:1.9.2'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '--add-opens', 'java.base/java.util=ALL-UNNAMED'
+}
+
+shadowJar {
+    archiveBaseName.set('contact-form-handler')
+    archiveClassifier.set('all')
+    archiveVersion.set('')
+}
