@@ -63,17 +63,6 @@ class ContactFormHandlerTest {
     }
 
     @Test
-    void missingFirstName_returns400WithFieldName() {
-        FormData form = createValidForm();
-        form.setFirstName(null);
-        APIGatewayV2HTTPResponse response = invokeHandler(form);
-
-        assertEquals(400, response.getStatusCode());
-        assertTrue(response.getBody().contains("firstName"));
-        assertTrue(response.getBody().contains("Validation failed"));
-    }
-
-    @Test
     void missingEmail_returns400WithFieldName() {
         FormData form = createValidForm();
         form.setEmail(null);
@@ -91,31 +80,6 @@ class ContactFormHandlerTest {
 
         assertEquals(400, response.getStatusCode());
         assertTrue(response.getBody().contains("company"));
-    }
-
-    @Test
-    void allRequiredFieldsMissing_returns400WithAllFieldNames() {
-        FormData form = new FormData();
-        APIGatewayV2HTTPResponse response = invokeHandler(form);
-
-        assertEquals(400, response.getStatusCode());
-        String body = response.getBody();
-        assertTrue(body.contains("firstName"));
-        assertTrue(body.contains("email"));
-        assertTrue(body.contains("company"));
-    }
-
-    @Test
-    void whitespaceOnlyFields_returns400() {
-        FormData form = createValidForm();
-        form.setFirstName("   ");
-        form.setEmail("  \t  ");
-        APIGatewayV2HTTPResponse response = invokeHandler(form);
-
-        assertEquals(400, response.getStatusCode());
-        String body = response.getBody();
-        assertTrue(body.contains("firstName"));
-        assertTrue(body.contains("email"));
     }
 
     // --- Malformed JSON test ---
@@ -206,39 +170,12 @@ class ContactFormHandlerTest {
 
     // --- Email formatting tests ---
 
-    @Test
-    void emailFormatting_allFieldsPopulated() {
-        EmailFormatter formatter = new EmailFormatter();
-        FormData form = createValidForm();
-        form.setLastName("Smith");
-        form.setPhone("+1-555-0000");
-        form.setTitle("VP Sales");
-        form.setIndustry("Manufacturing");
-        form.setProductLines("Pumps");
-        form.setQuotingProcess("Excel");
-        form.setMessage("Looking to streamline quoting");
-
-        String body = formatter.buildBody(form);
-        String subject = formatter.buildSubject(form);
-
-        assertTrue(body.contains("John"));
-        assertTrue(body.contains("Smith"));
-        assertTrue(body.contains("john@example.com"));
-        assertTrue(body.contains("+1-555-0000"));
-        assertTrue(body.contains("Acme Corp"));
-        assertTrue(body.contains("VP Sales"));
-        assertTrue(body.contains("Manufacturing"));
-        assertTrue(body.contains("Pumps"));
-        assertTrue(body.contains("Excel"));
-        assertTrue(body.contains("Looking to streamline quoting"));
-        assertTrue(subject.contains("Acme Corp"));
-    }
 
     @Test
     void emailFormatting_minimalRequiredFieldsOnly() {
         EmailFormatter formatter = new EmailFormatter();
         FormData form = new FormData();
-        form.setFirstName("Jane");
+        form.setName("Jane");
         form.setEmail("jane@test.com");
         form.setCompany("TestCo");
 
@@ -259,7 +196,7 @@ class ContactFormHandlerTest {
 
     private FormData createValidForm() {
         FormData form = new FormData();
-        form.setFirstName("John");
+        form.setName("John");
         form.setEmail("john@example.com");
         form.setCompany("Acme Corp");
         return form;

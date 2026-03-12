@@ -79,13 +79,9 @@ class SuccessResponsePropertyTest {
                 optionalString  // industry
         ).as((firstName, lastName, email, phone, company, title, industry) -> {
             FormData form = new FormData();
-            form.setFirstName(firstName);
-            form.setLastName(lastName);
+            form.setName(firstName);
             form.setEmail(email);
-            form.setPhone(phone);
             form.setCompany(company);
-            form.setTitle(title);
-            form.setIndustry(industry);
             return form;
         });
     }

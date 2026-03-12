@@ -21,6 +21,10 @@ dependencies {
     implementation 'com.amazonaws:aws-lambda-java-events:3.14.0'
     implementation 'software.amazon.awssdk:ses:2.29.45'
     implementation 'com.google.code.gson:gson:2.11.0'
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
     testImplementation 'net.jqwik:jqwik:1.9.2'

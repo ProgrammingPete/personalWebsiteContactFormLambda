@@ -46,7 +46,7 @@ class EmailMetadataPropertyTest {
                 nonEmptyAlpha   // company
         ).as((firstName, email, company) -> {
             FormData form = new FormData();
-            form.setFirstName(firstName);
+            form.setName(firstName);
             form.setEmail(email);
             form.setCompany(company);
             return form;

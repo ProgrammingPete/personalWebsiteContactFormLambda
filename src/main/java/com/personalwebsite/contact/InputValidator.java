@@ -8,8 +8,8 @@ public class InputValidator {
     public List<String> validate(FormData form) {
         List<String> invalidFields = new ArrayList<>();
 
-        if (isBlank(form.getFirstName())) {
-            invalidFields.add("firstName");
+        if (isBlank(form.getName())) {
+            invalidFields.add("name");
         }
         if (isBlank(form.getEmail())) {
             invalidFields.add("email");
@@ -29,15 +29,11 @@ public class InputValidator {
     }
 
     public void sanitizeAll(FormData form) {
-        form.setFirstName(sanitize(form.getFirstName()));
-        form.setLastName(sanitize(form.getLastName()));
+        form.setName(sanitize(form.getName()));
         form.setEmail(sanitize(form.getEmail()));
-        form.setPhone(sanitize(form.getPhone()));
+        form.setBudget(sanitize(form.getBudget()));
+        form.setProjectType(sanitize(form.getProjectType()));
         form.setCompany(sanitize(form.getCompany()));
-        form.setTitle(sanitize(form.getTitle()));
-        form.setIndustry(sanitize(form.getIndustry()));
-        form.setProductLines(sanitize(form.getProductLines()));
-        form.setQuotingProcess(sanitize(form.getQuotingProcess()));
         form.setMessage(sanitize(form.getMessage()));
     }
 
