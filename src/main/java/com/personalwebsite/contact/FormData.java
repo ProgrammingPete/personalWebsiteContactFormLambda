@@ -14,5 +14,4 @@ public class FormData {
     private String projectType;
     private String budget;
     private String message;
-
 }

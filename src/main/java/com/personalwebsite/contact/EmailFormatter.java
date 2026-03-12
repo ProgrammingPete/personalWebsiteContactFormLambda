@@ -3,15 +3,15 @@ package com.personalwebsite.contact;
 public class EmailFormatter {
 
     public String buildSubject(FormData form) {
-        return "Contact Form Submission from " + form.getCompany();
+        return "peterparianos.comContact Form Submission from " + form.getCompany();
     }
 
     public String buildBody(FormData form) {
         StringBuilder sb = new StringBuilder();
-        sb.append("New Contact Form Submission\n");
+        sb.append("New peterparianos.com Contact Form Submission\n");
         sb.append("===========================\n");
         sb.append("\n");
-        sb.append("Name: ").append(valueOrEmpty(form.getName()));
+        sb.append("Name: ").append(valueOrEmpty(form.getName())).append("\n");
         sb.append("Email: ").append(valueOrEmpty(form.getEmail())).append("\n");
         sb.append("Company: ").append(valueOrEmpty(form.getCompany())).append("\n");
         sb.append("Project Type: ").append(valueOrEmpty(form.getProjectType())).append("\n");

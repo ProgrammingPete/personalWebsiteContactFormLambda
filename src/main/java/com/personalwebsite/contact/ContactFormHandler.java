@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.ses.model.Content;
 import software.amazon.awssdk.services.ses.model.Destination;
 import software.amazon.awssdk.services.ses.model.Message;
 import software.amazon.awssdk.services.ses.model.SendEmailRequest;
+import software.amazon.awssdk.services.ses.model.SendEmailRequest.Builder;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,28 +69,39 @@ public class ContactFormHandler implements RequestHandler<APIGatewayV2HTTPEvent,
 
             // Format and send email
             String recipientEmail = System.getenv("RECIPIENT_EMAIL");
+            if(System.getenv("CC_EMAIL") == null) {
+                logger.warning("CC_EMAIL environment variable is not set. Emails will be sent without CC.");
+            }
             String ccEmail = System.getenv("CC_EMAIL");
             String subject = formatter.buildSubject(form);
             String body = formatter.buildBody(form);
 
-            SendEmailRequest emailRequest = SendEmailRequest.builder()
+            Builder emailRequest = SendEmailRequest.builder()
                     .source(recipientEmail)
-                    .destination(Destination.builder()
-                            .toAddresses(recipientEmail)
-                            .ccAddresses(ccEmail)
-                            .build())
+
                     .replyToAddresses(form.getEmail())
                     .message(Message.builder()
                             .subject(Content.builder().data(subject).charset("UTF-8").build())
                             .body(Body.builder()
                                     .text(Content.builder().data(body).charset("UTF-8").build())
                                     .build())
-                            .build())
-                    .build();
+                            .build());
 
-            sesClient.sendEmail(emailRequest);
+            Destination destination = Destination.builder()
+                    .toAddresses(recipientEmail)
+                    .build();
+            if(ccEmail != null && !ccEmail.isEmpty()) {
+                destination = Destination.builder()
+                        .toAddresses(recipientEmail)
+                        .ccAddresses(ccEmail)
+                        .build();
+            }
+            emailRequest.destination(destination);
+            
+            SendEmailRequest emailReq = emailRequest.build();
+            sesClient.sendEmail(emailReq);
             logger.info("Contact form submission processed successfully");
-            logger.info("Email sent to " + recipientEmail + " with CC to " + ccEmail);
+            logger.info("Email sent to " + recipientEmail + (ccEmail != null && !ccEmail.isEmpty() ? " with CC to " + ccEmail : ""));
             logger.info("Email body: " + body);
 
             return buildResponse(200,
